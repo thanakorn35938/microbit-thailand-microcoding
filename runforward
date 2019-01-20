@@ -1,0 +1,7 @@
+function runforward2() {
+    iBIT.Motor(ibitMotor.Forward, 100)
+}
+while (!(input.buttonIsPressed(Button.A))) {
+    basic.showIcon(IconNames.Happy)
+}
+runforward2()
