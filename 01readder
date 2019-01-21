@@ -1,0 +1,26 @@
+let middlesenvalue = 0
+let leftsenvalue = 0
+let rightsencalue = 0
+rightsencalue = 0
+leftsenvalue = 0
+middlesenvalue = 0
+basic.forever(function () {
+    serial.writeValue("left", leftsenvalue)
+    serial.writeValue("midle", middlesenvalue)
+    serial.writeValue("riht", rightsencalue)
+    if (iBIT.ReadADC(ibitReadADC.ADC6) < 200) {
+        rightsencalue = 1
+    } else {
+        rightsencalue = 0
+    }
+    if (iBIT.ReadADC(ibitReadADC.ADC4) < 200) {
+        leftsenvalue = 1
+    } else {
+        leftsenvalue = 0
+    }
+    if (iBIT.ReadADC(ibitReadADC.ADC5) < 200) {
+        middlesenvalue = 1
+    } else {
+        middlesenvalue = 0
+    }
+})
