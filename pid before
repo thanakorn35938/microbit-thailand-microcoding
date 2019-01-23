@@ -1,0 +1,77 @@
+let rightspeed = 0
+let leftspeed = 0
+let basespeed = 0
+let motorspeed = 0
+let Kp = 0
+let leftsenvalue = 0
+let middlesenvalue = 0
+let rightsencalue = 0
+let suprightsensorcalue = 0
+let eror = 0
+let supleftsensorvalue = 0
+let one = 0
+one = 1
+suprightsensorcalue = 0
+rightsencalue = 0
+leftsenvalue = 0
+middlesenvalue = 0
+supleftsensorvalue = 0
+eror = 0
+Kp = 0
+motorspeed = Kp * eror
+basespeed = 70
+leftspeed = motorspeed + basespeed
+rightspeed = motorspeed - basespeed
+basic.forever(function () {
+    serial.writeValue("supright", supleftsensorvalue)
+    serial.writeValue("right", rightsencalue)
+    serial.writeValue("middle", middlesenvalue)
+    serial.writeValue("left", leftsenvalue)
+    serial.writeValue("supleft", supleftsensorvalue)
+    if (iBIT.ReadADC(ibitReadADC.ADC4) < 3500) {
+        suprightsensorcalue = 1
+    } else {
+        suprightsensorcalue = 0
+    }
+    if (iBIT.ReadADC(ibitReadADC.ADC3) < 1500) {
+        rightsencalue = 1
+    } else {
+        rightsencalue = 0
+    }
+    if (iBIT.ReadADC(ibitReadADC.ADC6) < 1500) {
+        leftsenvalue = 1
+    } else {
+        leftsenvalue = 0
+    }
+    if (iBIT.ReadADC(ibitReadADC.ADC5) < 1500) {
+        middlesenvalue = 1
+    } else {
+        middlesenvalue = 0
+    }
+    if (iBIT.ReadADC(ibitReadADC.ADC7) < 2000) {
+        supleftsensorvalue = 1
+    } else {
+        supleftsensorvalue = 0
+    }
+})
+basic.forever(function () {
+    if (supleftsensorvalue == 0 && (leftsenvalue == 0 && (middlesenvalue == 0 && (rightsencalue == 0 && suprightsensorcalue == 1)))) {
+        eror = 4
+    } else if (supleftsensorvalue == 0 && (leftsenvalue == 0 && (middlesenvalue == 0 && (rightsencalue == 1 && suprightsensorcalue == 1)))) {
+        eror = 3
+    } else if (supleftsensorvalue == 0 && (leftsenvalue == 0 && (middlesenvalue == 0 && (rightsencalue == 1 && suprightsensorcalue == 0)))) {
+        eror = 2
+    } else if (supleftsensorvalue == 0 && (leftsenvalue == 0 && (middlesenvalue == 1 && (rightsencalue == 1 && suprightsensorcalue == 0)))) {
+        eror = 1
+    } else if (supleftsensorvalue == 0 && (leftsenvalue == 0 && (middlesenvalue == 1 && (rightsencalue == 0 && suprightsensorcalue == 0)))) {
+        eror = 0
+    } else if (supleftsensorvalue == 0 && (leftsenvalue == 1 && (middlesenvalue == 1 && (rightsencalue == 0 && suprightsensorcalue == 0)))) {
+        eror = -1
+    } else if (supleftsensorvalue == 0 && (leftsenvalue == 1 && (middlesenvalue == 0 && (rightsencalue == 0 && suprightsensorcalue == 0)))) {
+        eror = -2
+    } else if (supleftsensorvalue == 1 && (leftsenvalue == 1 && (middlesenvalue == 0 && (rightsencalue == 0 && suprightsensorcalue == 0)))) {
+        eror = -3
+    } else if (supleftsensorvalue == 1 && (leftsenvalue == 0 && (middlesenvalue == 0 && (rightsencalue == 0 && suprightsensorcalue == 0)))) {
+        eror = 0
+    }
+})
