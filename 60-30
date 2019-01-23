@@ -6,20 +6,20 @@ while (!(input.buttonIsPressed(Button.A))) {
     basic.showArrow(ArrowNames.West)
 }
 basic.showIcon(IconNames.Heart)
-refl = 990
-refr = 1000
+refl = 880
+refr = 900
 basic.forever(() => {
     l = iBIT.ReadADC(ibitReadADC.ADC6)
     r = iBIT.ReadADC(ibitReadADC.ADC4)
     if (l > refl && r > refr) {
-        iBIT.Motor(ibitMotor.Forward, 50)
+        iBIT.Motor(ibitMotor.Forward, 60)
     } else if (l < refl && r > refr) {
-        iBIT.Turn(ibitTurn.Right, 25)
+        iBIT.Turn(ibitTurn.Right, 30)
         basic.pause(5)
     } else if (l > refl && r < refr) {
-        iBIT.Turn(ibitTurn.Left, 25)
+        iBIT.Turn(ibitTurn.Left, 30)
         basic.pause(5)
     } else if (l < refl && r < refr) {
-        iBIT.Motor(ibitMotor.Forward, 50)
+        iBIT.Motor(ibitMotor.Forward, 60)
     }
 })
