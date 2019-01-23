@@ -12,14 +12,14 @@ basic.forever(() => {
     l = iBIT.ReadADC(ibitReadADC.ADC6)
     r = iBIT.ReadADC(ibitReadADC.ADC4)
     if (l > refl && r > refr) {
-        iBIT.Motor(ibitMotor.Forward, 40)
+        iBIT.Motor(ibitMotor.Forward, 50)
     } else if (l < refl && r > refr) {
-        iBIT.Turn(ibitTurn.Right, 20)
+        iBIT.Turn(ibitTurn.Right, 25)
         basic.pause(5)
     } else if (l > refl && r < refr) {
-        iBIT.Turn(ibitTurn.Left, 20)
+        iBIT.Turn(ibitTurn.Left, 25)
         basic.pause(5)
     } else if (l < refl && r < refr) {
-        iBIT.Motor(ibitMotor.Forward, 40)
+        iBIT.Motor(ibitMotor.Forward, 50)
     }
 })
