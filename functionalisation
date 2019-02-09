@@ -1,0 +1,105 @@
+let r = 0
+let flag = 0
+let l = 0
+let refr = 0
+let loop = 0
+let refl = 0
+function track2() {
+    while (flag == 0) {
+        l = iBIT.ReadADC(ibitReadADC.ADC4)
+        r = iBIT.ReadADC(ibitReadADC.ADC6)
+        if (l > refl && r > refr) {
+            iBIT.Motor(ibitMotor.Forward, 60)
+        } else if (l < refl && r > refr) {
+            iBIT.Turn(ibitTurn.Left, 30)
+        } else if (l > refl && r < refr) {
+            iBIT.Turn(ibitTurn.Right, 30)
+        } else if (l > refl && r > refr) {
+            iBIT.Motor(ibitMotor.Forward, 60)
+            flag = 1
+        }
+    }
+}
+function crossleft2222() {
+    loop = 0
+    while (loop == 0) {
+        l = iBIT.ReadADC(ibitReadADC.ADC4)
+        r = iBIT.ReadADC(ibitReadADC.ADC6)
+        if (l > refl && r > refr) {
+            iBIT.Motor(ibitMotor.Forward, 35)
+        } else if (l < refl && r > refr) {
+            iBIT.Turn(ibitTurn.Left, 20)
+        } else if (l > refl && r < refr) {
+            iBIT.Turn(ibitTurn.Right, 20)
+        } else if (l > refl && r > refr) {
+            iBIT.Motor(ibitMotor.Forward, 35)
+            iBIT.Turn(ibitTurn.Left, 40)
+            basic.pause(500)
+        }
+    }
+}
+function turnright222() {
+    while (flag == 0) {
+        l = iBIT.ReadADC(ibitReadADC.ADC0)
+        if (l <= refl) {
+            iBIT.MotorStop()
+            flag = 1
+        } else {
+            iBIT.Spin(ibitSpin.Right, 35)
+        }
+    }
+    flag = 0
+}
+function turn_left2222() {
+    while (flag == 0) {
+        l = iBIT.ReadADC(ibitReadADC.ADC0)
+        if (l <= refl) {
+            iBIT.MotorStop()
+            flag = 1
+        } else {
+            iBIT.Spin(ibitSpin.Left, 35)
+        }
+    }
+    flag = 0
+}
+function crossright2222() {
+    loop = 0
+    while (loop == 0) {
+        l = iBIT.ReadADC(ibitReadADC.ADC4)
+        r = iBIT.ReadADC(ibitReadADC.ADC6)
+        if (l > refl && r > refr) {
+            iBIT.Motor(ibitMotor.Forward, 35)
+        } else if (l < refl && r > refr) {
+            iBIT.Turn(ibitTurn.Left, 20)
+        } else if (l > refl && r < refr) {
+            iBIT.Turn(ibitTurn.Right, 20)
+        } else if (l > refl && r > refr) {
+            iBIT.Motor(ibitMotor.Forward, 35)
+            iBIT.Turn(ibitTurn.Right, 40)
+            basic.pause(500)
+        }
+    }
+}
+function crossstop2222() {
+    loop = 0
+    while (loop == 0) {
+        l = iBIT.ReadADC(ibitReadADC.ADC4)
+        r = iBIT.ReadADC(ibitReadADC.ADC6)
+        if (l > refl && r > refr) {
+            iBIT.Motor(ibitMotor.Forward, 35)
+        } else if (l < refl && r > refr) {
+            iBIT.Turn(ibitTurn.Left, 20)
+        } else if (l > refl && r < refr) {
+            iBIT.Turn(ibitTurn.Right, 20)
+        } else if (l > refl && r > refr) {
+            iBIT.MotorStop()
+            loop = 3
+        }
+    }
+}
+refl = 1904
+refr = 2036
+while (!(input.buttonIsPressed(Button.A))) {
+    basic.showIcon(IconNames.No)
+}
+basic.showIcon(IconNames.Yes)
