@@ -1,0 +1,88 @@
+let line = 0
+let refr = 0
+let r = 0
+let refl = 0
+let l = 0
+let count = 0
+function moveforward2() {
+    iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 70)
+    iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 70)
+    basic.pause(500)
+}
+function openservo12() {
+    iBIT.Servo(ibitServo.SV1, 130)
+    basic.pause(100)
+}
+function backword2() {
+    iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Backward, 70)
+    iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Backward, 70)
+    basic.pause(500)
+    turn_left22222()
+}
+function trackcount2() {
+    count = 0
+    while (count < line) {
+        if (iBIT.ReadADC(ibitReadADC.ADC6) < refl && iBIT.ReadADC(ibitReadADC.ADC4) < refr) {
+            count += 1
+            iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 30)
+            iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 20)
+            basic.pause(200)
+        }
+        tracknormal2()
+    }
+    iBIT.MotorStop()
+}
+function closeservo12() {
+    iBIT.Servo(ibitServo.SV1, 70)
+    basic.pause(100)
+}
+function tracknormal2() {
+    l = iBIT.ReadADC(ibitReadADC.ADC6)
+    r = iBIT.ReadADC(ibitReadADC.ADC4)
+    if (l > refl && r > refr) {
+        iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 50)
+        iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 30)
+    } else if (l < refl && r > refr) {
+        iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Backward, 40)
+        iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 40)
+    } else if (l > refl && r < refr) {
+        iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 40)
+        iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Backward, 40)
+    }
+}
+function turnright2222() {
+    iBIT.Spin(ibitSpin.Right, 50)
+    basic.pause(120)
+    while (iBIT.ReadADC(ibitReadADC.ADC4) > refr) {
+        iBIT.Spin(ibitSpin.Right, 50)
+    }
+    iBIT.MotorStop()
+}
+function turn_left22222() {
+    iBIT.Spin(ibitSpin.Left, 50)
+    basic.pause(120)
+    while (iBIT.ReadADC(ibitReadADC.ADC6) > refl) {
+        iBIT.Spin(ibitSpin.Left, 50)
+    }
+    iBIT.MotorStop()
+}
+count = 0
+refl = 990
+refr = 900
+while (!(input.buttonIsPressed(Button.A))) {
+    basic.showArrow(ArrowNames.West)
+}
+basic.showIcon(IconNames.Yes)
+line = 3
+openservo12()
+trackcount2()
+turn_left22222()
+line = 1
+trackcount2()
+closeservo12()
+backword2()
+trackcount2()
+turn_left22222()
+line = 2
+trackcount2()
+control.reset()
