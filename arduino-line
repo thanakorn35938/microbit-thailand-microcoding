@@ -1,0 +1,57 @@
+#include <Adafruit_Microbit.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SPITFT.h>
+#include <Adafruit_SPITFT_Macros.h>
+#include <gfxfont.h>
+#include <IBIT.h>
+#include <IBIT_Analog.h>
+#include <IBIT_Motor.h>
+#include <IBIT_Servo.h>
+#include <mbitServo.h>
+
+void setup() {
+  // put your setup code here, to run once:
+int ref-spsl = //insert reference here;
+int ref-l = //insert reference here;
+int ref-r = //insert reference here;
+int ref-spsr = //insert reference here;
+while(!(! digitalRead(PIN_BUTTON_A))){
+    // draw a heart
+  microbit.show(microbit.HEART);
+
+}
+  // draw a yes check
+  microbit.show(microbit.YES);
+  delay(1000);
+  while(true){
+    // call function here
+    track2();
+    }
+}
+
+void track2 (void){
+int l = analog(A0);//insert port of sensor here
+int r = analog(A0);//insert port of sensor here
+while(true){
+  if (ref-r < r && ref-l < l){
+      motor(1, 155);  
+      motor(2, 155);
+      pause(0);
+    }
+  else if (ref-r > r && ref-l < l){
+      motor(1, 155);  
+      motor(2, 155);
+      pause(0);
+    } 
+  else if (ref-r < r && ref-l > l){
+      motor(1, -155);  
+      motor(2, 155);
+      pause(0);
+    }
+  else if (ref-r > r && ref-l < l){
+      motor(1, 155);  
+      motor(2, -155);
+      pause(0);
+    }
+  }
+  }
