@@ -1,0 +1,66 @@
+let system = 0
+let light = 0
+let angle = 0
+function openservo () {
+    pins.servoWritePin(AnalogPin.P12, 90)
+}
+function closeservo () {
+    pins.servoWritePin(AnalogPin.P12, 0)
+}
+radio.onReceivedNumber(function (receivedNumber) {
+    pins.servoWritePin(AnalogPin.P0, receivedNumber)
+})
+input.onButtonPressed(Button.A, function () {
+	
+})
+function dashboard () {
+    radio.setTransmitPower(7)
+    radio.setGroup(43)
+    system = Math.round(pins.map(
+    input.rotation(Rotation.Pitch),
+    0,
+    360,
+    0,
+    180
+    ))
+    radio.sendNumber(system)
+}
+input.onButtonPressed(Button.B, function () {
+	
+})
+function variableshow () {
+    basic.showNumber(light)
+}
+function lightservo () {
+    light = Math.round(pins.map(
+    0,
+    0,
+    1023,
+    0,
+    180
+    ))
+    pins.servoWritePin(AnalogPin.P13, light)
+}
+function pin2read () {
+    angle = Math.round(pins.map(
+    pins.analogReadPin(AnalogPin.P2),
+    0,
+    1023,
+    0,
+    180
+    ))
+    pins.servoWritePin(AnalogPin.P13, angle)
+}
+basic.forever(function () {
+    while (true) {
+        openservo()
+        basic.pause(2000)
+        closeservo()
+    }
+})
+basic.forever(function () {
+	
+})
+basic.forever(function () {
+	
+})
