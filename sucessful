@@ -1,0 +1,91 @@
+let line = 0
+let r = 0
+let refr = 0
+let l = 0
+let count = 0
+let refl = 0
+function trackoutsen2() {
+    refl = 822
+    refr = 842
+    l = iBIT.ReadADC(ibitReadADC.ADC7)
+    r = iBIT.ReadADC(ibitReadADC.ADC3)
+    if (l > refl && r > refr) {
+        iBIT.Motor(ibitMotor.Forward, 50)
+    } else if (l < refl && r > refr) {
+        iBIT.Spin(ibitSpin.Left, 45)
+    } else if (l > refl && r < refr) {
+        iBIT.Spin(ibitSpin.Right, 45)
+    } else if (l < refl && r < refr) {
+        iBIT.Motor(ibitMotor.Forward, 50)
+    }
+}
+function moveforward2() {
+    iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 70)
+    iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 70)
+    basic.pause(500)
+}
+function backword2() {
+    iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Backward, 70)
+    iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Backward, 70)
+    basic.pause(500)
+    turn_left22222()
+}
+function trackcount2() {
+    count = 0
+    while (count < line) {
+        if (iBIT.ReadADC(ibitReadADC.ADC6) < refl && iBIT.ReadADC(ibitReadADC.ADC4) < refr) {
+            count += 1
+            iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 30)
+            iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 20)
+            basic.pause(200)
+        }
+        tracknormal2()
+    }
+    iBIT.MotorStop()
+}
+function tracknormal2() {
+    l = iBIT.ReadADC(ibitReadADC.ADC6)
+    r = iBIT.ReadADC(ibitReadADC.ADC4)
+    if (l > refl && r > refr) {
+        iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 80)
+        iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 80)
+    } else if (l < refl && r > refr) {
+        iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Backward, 60)
+        iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 70)
+    } else if (l > refl && r < refr) {
+        iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 70)
+        iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Backward, 60)
+    } else if (l < refl && r < refr) {
+        iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 80)
+        iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 60)
+    }
+}
+function turnright2222() {
+    iBIT.Spin(ibitSpin.Right, 50)
+    basic.pause(120)
+    while (iBIT.ReadADC(ibitReadADC.ADC4) > refr) {
+        iBIT.Spin(ibitSpin.Right, 50)
+    }
+    iBIT.MotorStop()
+}
+function turn_left22222() {
+    iBIT.Spin(ibitSpin.Left, 50)
+    basic.pause(120)
+    while (iBIT.ReadADC(ibitReadADC.ADC6) > refl) {
+        iBIT.Spin(ibitSpin.Left, 50)
+    }
+    iBIT.MotorStop()
+}
+count = 0
+refl = 890
+refr = 980
+while (!(input.buttonIsPressed(Button.A))) {
+    basic.showArrow(ArrowNames.West)
+}
+basic.showIcon(IconNames.Yes)
+// function editor
+while (true) {
+    trackoutsen2()
+    basic.pause(2)
+    tracknormal2()
+}
