@@ -1,0 +1,71 @@
+/**
+ */
+/**
+ */
+function _4cover () {
+    sl = iBIT.ReadADC(ibitReadADC.ADC7)
+    l = iBIT.ReadADC(ibitReadADC.ADC6)
+    r = iBIT.ReadADC(ibitReadADC.ADC4)
+    sr = iBIT.ReadADC(ibitReadADC.ADC3)
+    while (true) {
+        if (sl < refsl && (l < refl && (r < refr && sr < refsr))) {
+            iBIT.Motor(ibitMotor.Forward, 50)
+            basic.pause(0)
+        } else if (sl > refsl && (l > refl && (r > refr && sr > refsr))) {
+            iBIT.Motor(ibitMotor.Forward, 50)
+            basic.pause(0)
+        } else if (sl > refsl && (l < refl && (r < refr && sr < refsr))) {
+            iBIT.Spin(ibitSpin.Left, 20)
+            basic.pause(0)
+        } else if (sl < refsl && (l < refl && (r < refr && sr > refsr))) {
+            iBIT.Spin(ibitSpin.Right, 20)
+            basic.pause(0)
+        } else if (sl < refsl && (l > refl && (r > refr && sr > refsr))) {
+            iBIT.Spin(ibitSpin.Right, 20)
+            basic.pause(0)
+        } else if (sl > refsl && (l > refl && (r > refr && sr < refsr))) {
+            iBIT.Spin(ibitSpin.Left, 20)
+            basic.pause(0)
+        } else if (sl < refsl && (l < refl && (r > refr && sr > refsr))) {
+            iBIT.Spin(ibitSpin.Right, 20)
+            basic.pause(0)
+        } else if (sl > refsl && (l > refl && (r < refr && sr < refsr))) {
+            iBIT.Spin(ibitSpin.Left, 20)
+            basic.pause(0)
+        } else if (sl < refsl && (l < refl && (r > refr && sr < refsr))) {
+            iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 70)
+            iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 40)
+        } else if (sl < refsl && (l > refl && (r < refr && sr < refsr))) {
+            iBIT.setMotor(ibitMotorCH.M1, ibitMotor.Forward, 40)
+            iBIT.setMotor(ibitMotorCH.M2, ibitMotor.Forward, 70)
+        }
+    }
+}
+let sr = 0
+let r = 0
+let l = 0
+let sl = 0
+let refsl = 0
+let refl = 0
+let refr = 0
+let refsr = 0
+refsr = 636
+refr = 807
+refl = 830
+refsl = 812
+while (!(input.buttonIsPressed(Button.A))) {
+    basic.showArrow(ArrowNames.West)
+}
+basic.showLeds(`
+    # # # # #
+    . # . # .
+    . # . # .
+    . # # # .
+    . # # # .
+    `)
+while (true) {
+    _4cover()
+}
+basic.forever(function () {
+	
+})
