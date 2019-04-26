@@ -1,7 +1,6 @@
 basic.forever(function () {
-    serial.writeValue("superleft", iBIT.ReadADC(ibitReadADC.ADC3))
-    serial.writeValue("left", iBIT.ReadADC(ibitReadADC.ADC4))
-    serial.writeValue("middle", iBIT.ReadADC(ibitReadADC.ADC5))
-    serial.writeValue("right", iBIT.ReadADC(ibitReadADC.ADC6))
-    serial.writeValue("superright", iBIT.ReadADC(ibitReadADC.ADC7))
+    serial.writeValue("superleft", iBIT.ReadADC(ibitReadADC.ADC0))
+    serial.writeValue("left", iBIT.ReadADC(ibitReadADC.ADC1))
+    serial.writeValue("right", iBIT.ReadADC(ibitReadADC.ADC2))
+    serial.writeValue("superright", iBIT.ReadADC(ibitReadADC.ADC3))
 })
